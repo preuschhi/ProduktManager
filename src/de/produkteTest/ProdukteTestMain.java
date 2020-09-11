@@ -11,6 +11,7 @@ public class ProdukteTestMain {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
+		KundenStrukturen.kundenStrukturSammlung.add(KundenStrukturen.mapAlleKundenMap);
 		
 		System.out.println(Produkt.index);
 		System.out.println(Produkt.mapProdukteMap.size());
@@ -27,6 +28,8 @@ public class ProdukteTestMain {
 		
 		Produkt lyoner = new Produkt("Lyoner", 510, 2.50 , 14, Produkt.mapProdukteMap.size());
 		Produkt.mapProdukteMap.put(lyoner.getProduktNummer(), lyoner);
+		
+		
 		
 		while (1 == 1) {
 		Funktionen.steuerungProduktMenu();
