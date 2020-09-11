@@ -21,7 +21,7 @@ public class Funktionen {
 					+ "\n[2]Ein Produkt Erstellen"
 					+ "\n[3]Ein Produkt Suchen\n[4]Ein neues  Produkt einem Kunden hinzufuegen");
 			eingabeString = scanner.next();
-			testSchleife = FehlerTest.tryCatchInteger(eingabeString, true, true, 0, 3, false, false);
+			testSchleife = FehlerTest.tryCatchInteger(eingabeString, true, true, 0, 3, false, false, false);
 		} while (testSchleife == true);
 
 		if (eingabeString.equals("0")) {
