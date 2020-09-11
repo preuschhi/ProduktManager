@@ -1,39 +1,41 @@
 package de.produkteTest;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.TreeMap;
+import java.util.List;
+
+
+
 
 public class KundenStrukturen {
 
 	// Eigenschaften
 	Kunde kunde;
-	Map<Integer, Kunde> mapAlleKundenMap;
+	String kundenSammlungNameString;
+	static Map<Integer, Kunde> mapAlleKundenMap = new LinkedHashMap<>();
+	//Diese Map bildet KundenSammlungen/ Buendelungen;
+	Map<Integer, Kunde> mapKundenSammlungMap;
+	//Durch diese List hat man zugriff auf mapAlleKundenMap und auf KundenSammlungen;
+	static List<Map<Integer, Kunde>> kundenStrukturSammlung = new ArrayList<>();
+	
 
 	// Konstruktor
-	public KundenStrukturen() {
-		this.mapAlleKundenMap = new TreeMap<Integer, Kunde>();
+	public KundenStrukturen(String kundenSammlungNameString) {
+		this.kundenSammlungNameString = kundenSammlungNameString;
+		this.mapKundenSammlungMap = new LinkedHashMap<>();
 	}
-
-	public void addNewKundeToMapAlleKundenMap() {
-		boolean testschleife = false;
+	
+	public static class KundenSammlung{
+		/*
+		 * Eine KundenSammlung ist eine buendelung ausgewaehlter Kunden;
+		 * Wie z.B. Gebauer, Aupperle, usw....;
+		 */
 		Scanner scanner = new Scanner(System.in);
-		String eingabeString = null;
-		System.out.println("Einen neuen Kunden erstellen\n[0]Abbrechen");
-		do {
-			System.out.println("Kundennummer:___");
-			eingabeString = scanner.next();
-			try {
-				FehlerTest.TestInteger.testInteger(eingabeString);
-				FehlerTest.checkIfEingabeIs0(eingabeString);
-			} catch (Exception e) {
-				testschleife = true;
-				System.out.println(e.getMessage());
-				if (eingabeString.equals("0")) {
-					testschleife = false;
-				}
-			}
-		} while (testschleife == true);
 		
+		public static void erstelleKundenSammlung(Scanner scanner) {
+		
+		}
 	}
 }
