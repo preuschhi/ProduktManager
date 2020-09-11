@@ -8,12 +8,11 @@ public class Produkt {
 	// Eigenschaften
 	private String produktNameString;
 	private int produktNummer;
-	private String produktInfoString;
 	private double produktPreis;
 	private int produktMHD;
 	private int produktIndex;
 	FehlerTest fehlerTest;
-	static Map<Integer, Produkt> mapProdukteMap = new LinkedHashMap<Integer, Produkt>();
+	static Map<Integer, Produkt> mapProdukteMap = new LinkedHashMap<>();
 	public static int index = mapProdukteMap.size();
 
 	// Konstruktor
@@ -86,7 +85,7 @@ public class Produkt {
 			System.out.println("Welches Produkt soll gewählt werden?\nBitte Produktnummer eingeben\n[0]Abbrechen");
 			showMapProdukteMap();
 			eingabeString = scanner.next();
-			testSchleife = FehlerTest.tryCatchInteger(eingabeString, true, false, 0, 0, true, false);
+			testSchleife = FehlerTest.tryCatchInteger(eingabeString, true, false, 0, 0, true, false, false);
 			if (eingabeString.equals("0")) {
 				produktWirdGeholt = false;
 				//testSchleife wird extra false gesetzt da tryCatchInteger sie auf true stellt;
@@ -138,7 +137,7 @@ public class Produkt {
 		do {
 			System.out.println("Produktnummer: ___");
 			eingabeString = scan.next();
-			testSchleife = FehlerTest.tryCatchInteger(eingabeString, false, false, 0, 0, false, true);
+			testSchleife = FehlerTest.tryCatchInteger(eingabeString, false, false, 0, 0, false, true, false);
 		} while (testSchleife == true);
 		return Integer.parseInt(eingabeString);
 	}
@@ -157,13 +156,7 @@ public class Produkt {
 		do {
 			System.out.println("ProduktMHD dauer: ___ in Tagen");
 			eingabeString = scan.next();
-			try {
-				FehlerTest.TestInteger.testInteger(eingabeString);
-				testSchleife = false;
-			} catch (Exception e) {
-				System.out.println(e.getMessage());
-				testSchleife = true;
-			}
+			testSchleife = FehlerTest.tryCatchInteger(eingabeString, false, false, 0, 0, false, false, false);
 		} while (testSchleife == true);
 		return Integer.parseInt(eingabeString);
 	}
@@ -185,20 +178,19 @@ public class Produkt {
 		return produktMHD;
 	}
 
-	public String getProduktInfoString() {
-		return produktInfoString;
-	}
-
-	public void setProduktInfoString(String produktInfoString) {
-		this.produktInfoString = produktInfoString;
-	}
+	
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((produktInfoString == null) ? 0 : produktInfoString.hashCode());
+		result = prime * result + produktIndex;
+		result = prime * result + produktMHD;
+		result = prime * result + ((produktNameString == null) ? 0 : produktNameString.hashCode());
 		result = prime * result + produktNummer;
+		long temp;
+		temp = Double.doubleToLongBits(produktPreis);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
 		return result;
 	}
 
@@ -211,12 +203,18 @@ public class Produkt {
 		if (getClass() != obj.getClass())
 			return false;
 		Produkt other = (Produkt) obj;
-		if (produktInfoString == null) {
-			if (other.produktInfoString != null)
+		if (produktIndex != other.produktIndex)
+			return false;
+		if (produktMHD != other.produktMHD)
+			return false;
+		if (produktNameString == null) {
+			if (other.produktNameString != null)
 				return false;
-		} else if (!produktInfoString.equals(other.produktInfoString))
+		} else if (!produktNameString.equals(other.produktNameString))
 			return false;
 		if (produktNummer != other.produktNummer)
+			return false;
+		if (Double.doubleToLongBits(produktPreis) != Double.doubleToLongBits(other.produktPreis))
 			return false;
 		return true;
 	}
