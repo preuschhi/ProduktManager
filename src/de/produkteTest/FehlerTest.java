@@ -13,11 +13,12 @@ public class FehlerTest extends Exception {
 	 */
 
 	Produkt produkt;
+	KundenStrukturen kundenStrukturen;
 	static int eingabeZuInt = 0;
 
 	public static boolean tryCatchInteger(String eingabeString, boolean checkIfEingabeIs0,
 			boolean testIntegerRangeOfOptions, int min, int max, boolean checkIfProductExistInMapProdukteMap,
-			boolean checkIfProduktNummerIsAvailable) {
+			boolean checkIfProduktNummerIsAvailable, boolean checkIfKundenNummerIsAvailable) {
 
 		/*
 		 * Diese tryCatchMethode fasst alle FehlerMethoden, welche sich um Integers
@@ -57,6 +58,10 @@ public class FehlerTest extends Exception {
 				// Bei der Festlegung der Produktnummer eines neuen Produkts, muss getestet
 				// werden ob diese noch verfuegbar ist;
 				checkIfProduktNummerIsAvailable(eingabeStringZuInt);
+			}
+			if (checkIfKundenNummerIsAvailable == true) {
+				//Wenn dieser bool true ist, wird ueberprueft ob die gewuenschte Kundennummer verfuegbar ist
+				checkIfKundenNummerIsAvailable(eingabeStringZuInt);
 			}
 
 		} catch (Exception e) {
@@ -273,12 +278,21 @@ public class FehlerTest extends Exception {
 		 */
 		for (Integer produktNummer : Produkt.mapProdukteMap.keySet()) {
 			if (eingabeStringZuInt == produktNummer) {
-				throw new FehlerTest("Die Produktnummer " + eingabeZuInt + " ist schon vorhanden.\n"
+				throw new FehlerTest("Die Produktnummer " + eingabeZuInt + " ist schon vergeben.\n"
 						+ "Gib bitte eine andere Produktnummer ein.");
 			}
 		}
 	}
 
+	public static void checkIfKundenNummerIsAvailable(int eingabeStringZuInt) throws FehlerTest{
+		for (Integer kundenNummer : KundenStrukturen.mapAlleKundenMap.keySet()) {
+			if(kundenNummer == eingabeStringZuInt) {
+				throw new FehlerTest("Die Kundennummer " + kundenNummer + " ist schon vergeben.\n"
+						+ "Gib bitte eine andere Kundennummer ein.");
+			}
+		}
+	}
+	
 	public static void checkIfEingabeIs0(int eingabeStringZuInt) throws FehlerTest {
 		/*
 		 * Diese Methode checkt ob eingabeString eine 0, also abbrechen ist;
