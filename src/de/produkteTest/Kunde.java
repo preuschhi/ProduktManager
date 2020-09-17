@@ -17,7 +17,7 @@ public class Kunde {
 	
 
 	// Konstruktor
-	public Kunde(String kundenNameString, int kundenNummer) {
+	public Kunde( int kundenNummer, String kundenNameString) {
 		this.kundenNameString = kundenNameString;
 		this.kundenNummer = kundenNummer;
 		this.mapKundenProdukte = new LinkedHashMap<>();
@@ -36,24 +36,21 @@ public class Kunde {
 		String eingabeString = null;
 		Scanner scanner = new Scanner(System.in);
 		
-		public static void erstelleKunde(boolean testSchleife, String eingabeString, Scanner scanner) {
-			boolean erstelleSchleife = true;
+		
+		public static Kunde erstelleKunde(boolean testSchleife, String eingabeString, Scanner scanner) {
+			boolean erstelleSchleife = false;
+			Kunde newKunde = null;
 			do {
-				System.out.println("Du hast \"Kunde Erstellen gewaehlt\"\n[0]Abbrechen");
-				testSchleife = FehlerTest.tryCatchInteger(eingabeString, true, false, 0, 0, false, false, false);
+				System.out.println("Du hast \"Kunde Erstellen gewaehlt\"\n[1]Weiter");
+				eingabeString = scanner.nextLine();
+				testSchleife = FehlerTest.tryCatchInteger(eingabeString, false, false, 0, 0, false, false, false, false, false, false);
 			} while (testSchleife == true);
-			
-			//Wenn der User abbrechen will, wird der Vorgang zu denn settern abbgebrochen;
-			if (eingabeString.equals("0")) {
-				erstelleSchleife = false;
-			}
-			
-			while (erstelleSchleife == true) {
-				Kunde newKunde = new Kunde(setKundenName(testSchleife, eingabeString, scanner), setKundenNummer(testSchleife, eingabeString, scanner));
+							
+				newKunde = new Kunde( setKundenNummer(testSchleife, eingabeString, scanner), setKundenName(testSchleife, eingabeString, scanner));
 				KundenStrukturen.mapAlleKundenMap.put(newKunde.getKundenNummer(), newKunde); 
-				erstelleSchleife = false;
-			}
+				
 			
+			return newKunde;
 		}
 		
 		public static int setKundenNummer(boolean testSchleife, String eingabeString, Scanner scanner) {
@@ -64,7 +61,7 @@ public class Kunde {
 			do {
 				System.out.println("Kundennummer:____");
 				eingabeString = scanner.next();
-				testSchleife = FehlerTest.tryCatchInteger(eingabeString, false, false, 0, 0, false, false, true);
+				testSchleife = FehlerTest.tryCatchInteger(eingabeString, false, false, 0, 0, false, false, true, false, false, false);
 			} while (testSchleife == true);
 			return Integer.parseInt(eingabeString);
 		}
@@ -77,7 +74,7 @@ public class Kunde {
 			do {
 				System.out.println("Kundenname:___");
 				eingabeString = scanner.next();
-				testSchleife = FehlerTest.tryCatchString(eingabeString);
+				testSchleife = FehlerTest.tryCatchString(eingabeString, false, false);
 			} while (testSchleife == true);
 			return eingabeString;
 		}
@@ -87,7 +84,7 @@ public class Kunde {
 	public static class Produktverwaltung extends Kunde{
 		//Konstruktor -> wird aber nicht benoetigt
 		public Produktverwaltung(String kundenNameString, int kundenNummer) {
-			super(kundenNameString, kundenNummer);
+			super(kundenNummer, kundenNameString);
 		}
 
 		public  void addProduktToKunde(Scanner scanner) {
@@ -98,7 +95,7 @@ public class Kunde {
 				System.out.println(
 						"[0]Abbrechen\n[1]Ein neues Produkt erstellen und hinzufuegen\n[2]Ein bestehendes Produkt hinzufuegen");
 				eingabeString = scanner.next();
-				FehlerTest.tryCatchInteger(eingabeString, true, true, 0, 2, false, false, false);					
+				FehlerTest.tryCatchInteger(eingabeString, true, true, 0, 2, false, false, false, false, false, false);					
 			} while (testSchleife == true);
 			
 			while (addSchleife == true){
@@ -139,6 +136,45 @@ public class Kunde {
 		}
 
 	}
+	
+	
+	public static class AusgabeKunde{
+		
+		public static void ausgabeKundeWahl() {
+		/*
+		 * In dieser Methode wird der User gefragt, welchen Kunden er ausgeben lassen will;
+		 * Erst muss er eine existierende KundenNummer eingeben;
+		 * In einer TryCatchIntegerMethode wird die eingabe geprueft;
+		 * Wenn alles passt, wird der Kunde ausgeben => ProduktNummer und ProduktNamen;
+		 */
+			boolean testSchleife = false;
+			String eingabeString = null;
+			Scanner scanner = new Scanner(System.in);
+			do {
+				System.out.println("Kundennummer:___\n[0]Abbruch");
+				eingabeString = scanner.nextLine();
+				testSchleife = FehlerTest.tryCatchInteger(eingabeString, true, false, 0, 0, false, false, false, true, false, false);
+			} while (testSchleife); 
+			
+			if (!eingabeString.equals("0")) {
+				int kundenNummer = Integer.parseInt(eingabeString);
+				ausgabeKunde(kundenNummer);
+			}
+		}
+		
+		public static void ausgabeKunde(int kundenNummer) {
+			/*
+			 * Nachdem der User eine KundenNummer gewaehlt hat, wird dieser Kunde nun ausgegeben;
+			 */
+			Kunde kunde = KundenStrukturen.mapAlleKundenMap.get(kundenNummer);
+			System.out.println("Kunde: " + kunde.getKundenNummer() + " " + kunde.getKundenNameString());
+			
+			for (Integer key : kunde.mapKundenProdukte.keySet()) {
+				System.out.println("Produktnummer: " + key + " Produkt" + kunde.mapKundenProdukte.get(key));
+			}
+		}
+	}
+	
 
 
 	
