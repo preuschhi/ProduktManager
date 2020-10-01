@@ -8,10 +8,9 @@ import de.produkteTest.KundenStrukturen.KundenSammlung;
 
 import de.produkteTest.KundenStrukturen.KundenSammlungFunktionen;
 
-
-
 public class ProdukteTestMain {
 
+	@SuppressWarnings("static-access")
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
@@ -19,69 +18,65 @@ public class ProdukteTestMain {
 		boolean testSchleife = false;
 		String eingabeString = null;
 
-		
-		
-		System.out.println(Produkt.index);
-		System.out.println(Produkt.mapProdukteMap.size());
-		
-		Produkt saitenProdukt = new Produkt("Saiten", 707, 5.00 , 14, Produkt.mapProdukteMap.size());
+		Produkt saitenProdukt = new Produkt("Saiten", 707, 5.00, 14);
 		Produkt.mapProdukteMap.put(saitenProdukt.getProduktNummer(), saitenProdukt);
-		System.out.println(Produkt.index);
-		System.out.println(Produkt.mapProdukteMap.size());
-		
-		Produkt knackerProdukt = new Produkt("Knacker", 720, 6.50 , 24, Produkt.mapProdukteMap.size());
-		Produkt.mapProdukteMap.put(knackerProdukt.getProduktNummer(), knackerProdukt);
-		System.out.println(Produkt.index);
-		System.out.println(Produkt.mapProdukteMap.size());
-		
-		Produkt lyoner = new Produkt("Lyoner", 510, 2.50 , 14, Produkt.mapProdukteMap.size());
-		Produkt.mapProdukteMap.put(lyoner.getProduktNummer(), lyoner);
-		
-		//TEST OB MAN EINZELNE KUNDENSAMMLUNGEN LOESCHEN KANN
-		KundenStrukturen kdSammlung = new KundenStrukturen(1234, "Test");
-		KundenStrukturen.mapAlleKundenStrukturen.put(kdSammlung.kundenSammlungNummer, kdSammlung);
-		
-		KundenStrukturen.KundenSammlungFunktionen kdSammlung2 = new KundenStrukturen.KundenSammlungFunktionen(2345, "Test2");
-		KundenSammlung.mapAlleKundenStrukturen.put(kdSammlung2.kundenSammlungNummer, kdSammlung2);
-		kdSammlung2.kundenZuKundenSammlungHinzufuegen(testSchleife, eingabeString, scanner);
-		KundenSammlungFunktionen.ausgabeBeliebigeKundenSammlung(scanner, testSchleife, eingabeString);
-		
-		KundenStrukturen.KundenSammlung.erstelleKundenSammlung(scanner);
-		
-		KundenStrukturen kdSammlung3 = new KundenStrukturen(3456, "Test3");
-		KundenStrukturen.mapAlleKundenStrukturen.put(kdSammlung3.kundenSammlungNummer, kdSammlung3);
-		
-		KundenSammlungFunktionen.ausgabeAlleKundenSammlungen();
-//		KundenStrukturen.KundenSammlungFunktionen.deleteBeliebigeKundenSammlung(scanner, testSchleife, eingabeString);
-		
-		KundenStrukturen.KundenSammlungFunktionen.editBeliebigeKundenSammlung(scanner, testSchleife, eingabeString);
-		KundenSammlungFunktionen.ausgabeAlleKundenSammlungen();
-		
-		//TEST FUER PRODUKTE IN KUNDEN. PRODUKT WIRD GEAENDERT;
-//		Kunde.ErstelleKunde.erstelleKunde(testSchleife, eingabeString, scanner);
-//		System.out.println(KundenStrukturen.mapAlleKundenMap.get(2003));
-//		Kunde kunde = KundenStrukturen.mapAlleKundenMap.get(2003);
-//		kunde.mapKundenProdukte.put(707, saitenProdukt);
-//		
-//		Kunde.ErstelleKunde.erstelleKunde(testSchleife, eingabeString, scanner);
-//		System.out.println(KundenStrukturen.mapAlleKundenMap.get(1234));
-//		Kunde kunde2 = KundenStrukturen.mapAlleKundenMap.get(1234);
-//		kunde.mapKundenProdukte.put(707, saitenProdukt);
-//
-//		System.out.println(kunde.mapKundenProdukte.get(707));
-//		saitenProdukt.produktNameString = saitenProdukt.setProduktNameString(testSchleife, eingabeString, scanner);
-//		System.out.println(saitenProdukt.getProduktNameString());
-//		
-//		
-//		System.out.println(kunde.mapKundenProdukte.get(707));
-//		System.out.println(kunde2.mapKundenProdukte.get(707));
-		
-//		while (1 == 1) {
-//		Funktionen.steuerungProduktMenu();
-//		}
-		
-		
 
+		System.out.println(Produkt.mapProdukteMap.size());
+
+		Produkt knackerProdukt = new Produkt("Knacker", 720, 6.50, 24);
+		Produkt.mapProdukteMap.put(knackerProdukt.getProduktNummer(), knackerProdukt);
+
+		System.out.println(Produkt.mapProdukteMap.size());
+
+		Produkt lyoner = new Produkt("Lyoner", 510, 2.50, 14);
+		Produkt.mapProdukteMap.put(lyoner.getProduktNummer(), lyoner);
+
+		KundenSammlungFunktionen kdSammlung = new KundenSammlungFunktionen(1234, "Harald");
+		KundenStrukturen.mapAlleKundenStrukturen.put(kdSammlung.getKundenSammlungNummer(), kdSammlung);
+		
+		KundenSammlungFunktionen kdSammlung2 = new KundenSammlungFunktionen(2345, "Peter");	
+		KundenStrukturen.mapAlleKundenStrukturen.put(kdSammlung2.getKundenSammlungNummer(), kdSammlung2);
+		
+		KundenSammlungFunktionen kdSammlung3 = new KundenSammlungFunktionen(3456, "Andi");
+		KundenStrukturen.mapAlleKundenStrukturen.put(kdSammlung3.getKundenSammlungNummer(), kdSammlung3);
+		
+		KundenSammlungFunktionen kdSammlung4 = new KundenSammlungFunktionen(5432, "Delia");
+		KundenStrukturen.mapAlleKundenStrukturen.put(kdSammlung4.getKundenSammlungNummer(), kdSammlung4);
+		
+		
+		Kunde kunde = new Kunde(2003, "Dorfladen");
+		KundenStrukturen.mapAlleKundenMap.put(kunde.getKundenNummer(), kunde);
+		kunde.mapKundenProdukte.put(saitenProdukt.getProduktNummer(), saitenProdukt);		
+		Kunde kunde2 = new Kunde(120, "Gebauer");
+		KundenStrukturen.mapAlleKundenMap.put(kunde2.getKundenNummer(), kunde2);
+		
+		Map<Integer, Kunde> mapTestMap = new LinkedHashMap<Integer, Kunde>();
+		mapTestMap.put(kunde.getKundenNummer(), kunde);
+		
+		
+		
+		
+		boolean run = true;
+		while ( run == true) {
+			do {
+				System.out.println("=================================================0\n[1]Produktoptionen\n[2]Kundensammlungenoptionen\n[3]Kundenoptionen");
+				eingabeString = scanner.nextLine();
+				testSchleife = FehlerTest.tryCatchInteger(eingabeString, false, true, 1, 3, false, false, false, false, false, false);
+			} while (testSchleife == true);
+			
+			if (eingabeString.equals("1")) {
+				Funktionen.steuerungProduktMenu();
+			}
+			if (eingabeString.equals("2")) {
+				Funktionen.steuerungKundenSammlungMenu();
+			}
+			if (eingabeString.equals("3")) {
+				Funktionen.steuerungKundenMenu();
+			}
+				
+		}
+		
+		
 	}
 
 }
